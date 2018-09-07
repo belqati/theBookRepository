@@ -1,0 +1,17 @@
+body {
+  background: #373B44;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to top, #526E9D, #373B44) fixed;  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to top, #526E9D, #373B44) fixed; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: white;
+  font-family: 'Martel', serif;
+}
+
+h1 {
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.container {
+  margin-top: 50px;
+  width: 90%;
+}
