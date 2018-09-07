@@ -3,6 +3,9 @@ body {
   background: -webkit-linear-gradient(to top, #526E9D, #373B44) fixed;  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to top, #526E9D, #373B44) fixed; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   color: white;
+}
+
+body, button, select, input[placeholder] {
   font-family: 'Martel', serif;
 }
 
@@ -11,7 +14,55 @@ h1 {
   letter-spacing: 1px;
 }
 
+h4 {
+  margin-bottom: 40px;
+}
+
+button {
+  margin-top: 29px;
+  background: #526E9D;
+  border-color: white;
+  color: white;
+}
+
+button:hover, button:active, button:focus {
+  background: #373B44;
+  border-color: white;
+  color: white;
+}
+
+input, select {
+  color: #526E9D;
+}
+
+option {
+  color: #373B44;
+}
+
 .container {
   margin-top: 50px;
   width: 90%;
 }
+
+.success, .error {
+  padding: 10px;
+  border-radius: 3px;
+  margin: 5px 0 15px 0;
+}
+
+.error {
+  color: #956404;
+  background: #FFF3CD;
+  border: 1 solid #FFEEBA;
+}
+
+.success {
+  color: #0C5477;
+  background: #D1ECF1;
+  border: 1 solid #BEE5EB;
+}
+
+#titleCenter {
+  text-align: center;
+}
+
