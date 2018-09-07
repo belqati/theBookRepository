@@ -23,9 +23,21 @@ UI.prototype.addBookToList = function(book){
     <td>${book.year}</td>
     <td><em>${book.title}</em></td>
     <td>${book.isbn}</td>
-    <td><a href="#" class="delete"><i class="fas fa-times"></i></a></td>
+    <td><a href="#" class="delete"><i class="deleteItem fas fa-times"></i></a></td>
   `;
   list.appendChild(row);
+}
+
+// delete book
+UI.prototype.deleteBook = function(target){
+  // parent = tr
+  if(target.classList.contains('delete')){
+    target.parentElement.parentElement.remove();
+
+  // parent = td
+  } else if(target.classList.contains('deleteItem')){
+    target.parentElement.parentElement.parentElement.remove();
+  }
 }
 
 // clear inputs
@@ -57,7 +69,8 @@ UI.prototype.showAlert = function(message, className){
   }, 3000);
 }
 
-// Event Listeners
+// EVENT LISTENERS
+// Event listener for add book
 document.querySelector('#book-form').addEventListener('submit', function(e){
   // get form values
   const author = document.querySelector('#author').value,
@@ -85,6 +98,18 @@ document.querySelector('#book-form').addEventListener('submit', function(e){
   // clear fields
   ui.clearFields();
   }
+
+  e.preventDefault();
+});
+
+// Event listener for delete
+document.querySelector('#book-list').addEventListener('click', function(e){
+  // instantiate UI
+  const ui = new UI();
+  // delete book
+  ui.deleteBook(e.target);
+  // show alert
+  ui.showAlert('Book removed!', 'success');
 
   e.preventDefault();
 });
