@@ -51,7 +51,7 @@ class UI {
     }, 3000);
   }
 
-  // delete a book
+  // delete a book from UI
   deleteBook(target){
     // grab all parents of anchor around fa-times
     if(target.parentElement.classList.contains('delete')){
@@ -86,6 +86,7 @@ class Store {
     return books;
   }
 
+  // then display books in UI
   static displayBooks(){
     // get books method for grabbing array
     const books = Store.getBooks();
@@ -98,6 +99,7 @@ class Store {
     });
   }
 
+  // add book to local storage
   static addBook(book){
     // get books method for grabbing array
     const books = Store.getBooks();
@@ -107,8 +109,21 @@ class Store {
     localStorage.setItem('books', JSON.stringify(books))
   }
 
-  static removeBook(){
+  // remove book from local storage
+  static removeBook(isbn){
+    // get books method for grabbing array
+    const books = Store.getBooks();
 
+    // loop through and update
+    books.forEach(function(book, index){
+      // if isbn matches, splice book obj out of array
+      if(book.isbn === isbn){
+        books.splice(index, 1);
+      }
+    });
+
+    // update localStorage via stringify
+    localStorage.setItem('books', JSON.stringify(books));
   }
 }
 
@@ -116,7 +131,6 @@ class Store {
 // DOM Load Event for populating UI with books from localStorage
 document.addEventListener('DOMContentLoaded', Store.displayBooks);
 
-// The following listeners are from our ES5
 // Event listener to form for add book
 document.querySelector('#book-form').addEventListener('submit', function(e){
   // get form values
@@ -161,6 +175,8 @@ document.querySelector('#book-list').addEventListener('click', function(e){
   const ui = new UI();
   // delete book
   ui.deleteBook(e.target);
+  // remove from localStorage
+  Store.removeBook(e.target.parentElement.parentElement.previousElementSibling.textContent);
   // show show alert
   ui.showAlert('Book removed!', 'success');
   // prevent default behavior for delete (else UI jumps to top of page on delete via href="#")
