@@ -182,3 +182,12 @@ document.querySelector('#book-list').addEventListener('click', function(e){
   // prevent default behavior for delete (else UI jumps to top of page on delete via href="#")
   e.preventDefault();
 });
+
+// Event listener for sort order via dropdown
+document.querySelector('#sortOrder').addEventListener('change', function(){
+  // grab option value
+  let sort = document.querySelector('#sortOrder').value;
+
+  console.log(sort);
+
+});
