@@ -8,16 +8,17 @@ class Book {
     this.title = title;
     this.isbn =isbn;
   }
-  // could place methods here, but then repeated for every instance of a new Book
+  // could add methods here, but then repeated in the prototype for every instance of a new Book; better to place them in a different class, then access them via that class's prototype
 }
 
-// UI class holds all methods in prototype
+// UI class holds all methods in prototype; no new UI thus no constructor needed
 class UI {
+  // addBook
   addBookToList(book){
     const list = document.querySelector('#book-list');
-    // create tr element
+    // create row element
     const row = document.createElement('tr');
-    // insert columns
+    // insert data columns for row
     row.innerHTML = `
       <td>${book.author}</td>
       <td>${book.year}</td>
@@ -25,40 +26,44 @@ class UI {
       <td>${book.isbn}</td>
       <td><a href="#" class="delete"><i class="deleteItem fas fa-times"></i></a></td>
     `;
+    // append row/data to book list
     list.appendChild(row);
   }
 
+  // show alert
   showAlert(message, className){
-    // create div
+    // create div element
     const div = document.createElement('div');
-    // add class
+    // add two classes to div: 'alert' for timeOut of alert, 'className' for style (via CSS)
     div.className = `alert ${className}`;
-    // add text
+    // append message argument to div as text
     div.appendChild(document.createTextNode(message));
-    // get parent
+    // get parent element
     const container = document.querySelector('.container');
-    // get form
+    // get form element
     const form = document.querySelector('#book-form');
-    // insert alert
+    // insert div alert within container, immediately before the form
     container.insertBefore(div, form);
 
-    // timeout after 3s
+    // remove div after 3s
     setTimeout(function(){
       document.querySelector('.alert').remove();
     }, 3000);
   }
 
+  // delete a book
   deleteBook(target){
-    // parent = tr
+    // grab all parents of anchor around fa-times
     if(target.classList.contains('delete')){
       target.parentElement.parentElement.remove();
 
-    // parent = td
+    // grab all parents of fa-times
     } else if(target.classList.contains('deleteItem')){
       target.parentElement.parentElement.parentElement.remove();
     }
   }
 
+  // clear all inputs
   clearFields(){
     document.querySelector('#author').value = '';
     document.querySelector('#year').value = '';
@@ -68,7 +73,7 @@ class UI {
 }
 
 // EVENT LISTENERS: SAME AS ES5
-// Event listener for add book
+// Event listener to form for add book
 document.querySelector('#book-form').addEventListener('submit', function(e){
   // get form values
   const author = document.querySelector('#author').value,
@@ -79,37 +84,36 @@ document.querySelector('#book-form').addEventListener('submit', function(e){
   // instantiate book object
   const book = new Book(author, year, title, isbn);
 
-  // instantiate UI
+  // instantiate UI class for accessing its methods via its prototype
   const ui = new UI();
-  // console illustrates classes as syntactic sugar, where UI methods are stored in its prototype, just as in our ES5 version 
+  // console illustrates classes as syntactic sugar, showing that UI methods are stored in its prototype, just as in our ES5 version 
   // console.log(ui);
 
-  // validate input
+  // validate form input
   if(author === '' || year === '' || title === '' || isbn === ''){
-    // error alert
+    // show error alert
     ui.showAlert('Please fill in all fields', 'error');
   } else {
   // add book to list
   ui.addBookToList(book);
 
-  // success alert
+  // show success alert
   ui.showAlert('Book successfully added!', 'success');
 
   // clear fields
   ui.clearFields();
   }
 
+  // prevent default form behavior
   e.preventDefault();
 });
 
-// Event listener for delete
+// Event listener for book delete
 document.querySelector('#book-list').addEventListener('click', function(e){
-  // instantiate UI
+  // instantiate UI class for method access
   const ui = new UI();
   // delete book
   ui.deleteBook(e.target);
-  // show alert
+  // show show alert
   ui.showAlert('Book removed!', 'success');
-
-  e.preventDefault();
 });
