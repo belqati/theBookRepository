@@ -185,9 +185,68 @@ document.querySelector('#book-list').addEventListener('click', function(e){
 
 // Event listener for sort order via dropdown
 document.querySelector('#sortOrder').addEventListener('change', function(){
-  // grab option value
-  let sort = document.querySelector('#sortOrder').value;
+  // get books method for array
+  let books = Store.getBooks();
 
-  console.log(sort);
+  // grab sort option value
+  let sortValue = document.querySelector('#sortOrder').value;
 
+  // variable for UI book list
+  const bookList = document.querySelector('#book-list');
+
+  // clear UI of all books
+  if(bookList.firstChild){
+    // remove firstChild from DOM until there are none
+    while(bookList.firstChild){
+      bookList.removeChild(bookList.firstChild);
+    }
+  }
+
+  // for sort() method: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+
+  // sort by author
+  if(sortValue === 'author'){
+    books.sort(function(a,b){
+      let aAuthor = a.author.toLowerCase();
+      let bAuthor = b.author.toLowerCase();
+      if(aAuthor < bAuthor){
+        return -1;
+      }
+      if(aAuthor > bAuthor){
+        return 1;
+      }
+      return 0;
+    });
+    // update localStorage via stringify
+    localStorage.setItem('books', JSON.stringify(books));
+  }
+
+  // sort by title
+  if(sortValue === 'title'){
+    books.sort(function(a,b){
+      let aTitle = a.title.toLowerCase();
+      let bTitle = b.title.toLowerCase();
+      if(aTitle < bTitle){
+        return -1;
+      }
+      if(aTitle > bTitle){
+        return 1;
+      }
+      return 0;
+    });
+    // update localStorage via stringify
+    localStorage.setItem('books', JSON.stringify(books));
+  }
+
+  // sort by year
+  if(sortValue === 'year'){
+    books.sort(function(a,b){
+      return a.year - b.year;
+    });
+    // update localStorage via stringify
+    localStorage.setItem('books', JSON.stringify(books));
+  }
+
+  // display sorted books in UI
+  Store.displayBooks();
 });
