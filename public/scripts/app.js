@@ -32,11 +32,7 @@ UI.prototype.addBookToList = function(book){
 // delete a book
 UI.prototype.deleteBook = function(target){
   // grab all parents of anchor around fa-times
-  if(target.classList.contains('delete')){
-    target.parentElement.parentElement.remove();
-
-  // grab all parents of fa-times
-  } else if(target.classList.contains('deleteItem')){
+  if(target.parentElement.classList.contains('delete')){
     target.parentElement.parentElement.parentElement.remove();
   }
 }
@@ -67,7 +63,7 @@ UI.prototype.showAlert = function(message, className){
   // remove div alert after 3s
   setTimeout(function(){
     document.querySelector('.alert').remove();
-  }, 3000);
+  }, 2000);
 }
 
 // EVENT LISTENERS
