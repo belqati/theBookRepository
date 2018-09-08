@@ -48,7 +48,7 @@ class UI {
     // remove div after 3s
     setTimeout(function(){
       document.querySelector('.alert').remove();
-    }, 3000);
+    }, 2000);
   }
 
   // delete a book from UI
@@ -147,9 +147,6 @@ document.querySelector('#book-form').addEventListener('submit', function(e){
   // console illustrates classes as syntactic sugar, showing that UI methods are stored in its prototype, just as in our ES5 version 
   // console.log(ui);
 
-  // add book to localStorage via static method in Store; no need to instantiate
-  Store.addBook(book);
-
   // validate form input
   if(author === '' || year === '' || title === '' || isbn === ''){
     // show error alert
@@ -157,6 +154,9 @@ document.querySelector('#book-form').addEventListener('submit', function(e){
   } else {
   // add book to list
   ui.addBookToList(book);
+
+  // add book to localStorage via static method in Store; no need to instantiate
+  Store.addBook(book);
 
   // show success alert
   ui.showAlert('Book successfully added!', 'success');
