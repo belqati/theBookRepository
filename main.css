@@ -62,11 +62,13 @@ option {
   border: 1 solid #BEE5EB;
 }
 
+.delete {
+  font-size: 2rem;
+}
+
 .delete:hover {
-  color: #bf360c;
   font-weight: bolder;
-  font-size: 2.5rem;
-  transition: .3s;
+  color: #bf360c;
 }
 
 #titleCenter {

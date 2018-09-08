@@ -24,7 +24,7 @@ class UI {
       <td>${book.year}</td>
       <td><em>${book.title}</em></td>
       <td>${book.isbn}</td>
-      <td><a href="#" class="delete"><i class="deleteItem fas fa-times"></i></a></td>
+      <td><a href="#" class="delete"><i class="fas fa-times"></i></a></td>
     `;
     // append row/data to book list
     list.appendChild(row);
@@ -54,11 +54,7 @@ class UI {
   // delete a book
   deleteBook(target){
     // grab all parents of anchor around fa-times
-    if(target.classList.contains('delete')){
-      target.parentElement.parentElement.remove();
-
-    // grab all parents of fa-times
-    } else if(target.classList.contains('deleteItem')){
+    if(target.parentElement.classList.contains('delete')){
       target.parentElement.parentElement.parentElement.remove();
     }
   }
@@ -167,4 +163,6 @@ document.querySelector('#book-list').addEventListener('click', function(e){
   ui.deleteBook(e.target);
   // show show alert
   ui.showAlert('Book removed!', 'success');
+  // prevent default behavior for delete (else UI jumps to top of page on delete via href="#")
+  e.preventDefault();
 });
