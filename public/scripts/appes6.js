@@ -11,7 +11,7 @@ class Book {
   // could add methods here, but then repeated in the prototype for every instance of a new Book; better to place them in a different class, then access them via that class's prototype
 }
 
-// UI class holds all methods in prototype; no new UI thus no constructor needed
+// UI class holds all methods in prototype; no new UI with args thus no constructor needed
 class UI {
   // addBook
   addBookToList(book){
@@ -72,7 +72,55 @@ class UI {
   }
 }
 
-// EVENT LISTENERS: SAME AS ES5
+// Local Storage class for localStorage methods
+class Store {
+  // set all methods as static, making them immediately available--thus no need to instantiate Store
+
+  // first get books from localStorage
+  static getBooks(){
+    let books;
+    if(localStorage.getItem('books') === null){
+      // create empty array for adding first book
+      books = [];
+    } else {
+      // convert localStorage string to array
+      books = JSON.parse(localStorage.getItem('books'));
+    }
+    // return empty/parsed array
+    return books;
+  }
+
+  static displayBooks(){
+    // get books method for grabbing array
+    const books = Store.getBooks();
+    // loop through array
+    books.forEach(function(book){
+      // instantiate UI to use its methods
+      const ui = new UI;
+      // add book to UI
+      ui.addBookToList(book);
+    });
+  }
+
+  static addBook(book){
+    // get books method for grabbing array
+    const books = Store.getBooks();
+    // add new book object to that array
+    books.push(book);
+    // set updated array into localStorage as a string
+    localStorage.setItem('books', JSON.stringify(books))
+  }
+
+  static removeBook(){
+
+  }
+}
+
+// EVENT LISTENERS
+// DOM Load Event for populating UI with books from localStorage
+document.addEventListener('DOMContentLoaded', Store.displayBooks);
+
+// The following listeners are from our ES5
 // Event listener to form for add book
 document.querySelector('#book-form').addEventListener('submit', function(e){
   // get form values
@@ -88,6 +136,9 @@ document.querySelector('#book-form').addEventListener('submit', function(e){
   const ui = new UI();
   // console illustrates classes as syntactic sugar, showing that UI methods are stored in its prototype, just as in our ES5 version 
   // console.log(ui);
+
+  // add book to localStorage via static method in Store; no need to instantiate
+  Store.addBook(book);
 
   // validate form input
   if(author === '' || year === '' || title === '' || isbn === ''){
