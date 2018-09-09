@@ -15,7 +15,37 @@ h1 {
 }
 
 h4 {
-  margin-bottom: 40px;
+  margin-bottom: 35px;
+}
+
+.tableBooks {
+  border-collapse: collapse;
+}
+
+.tableBooks th {
+  padding: 10px 5px 10px 5px;
+}
+
+.tableBooks td {
+  padding: 8px 5px 8px 5px;
+}
+
+th {
+  border: none;
+  background-color: #373B44;
+}
+
+td {
+  font-size: 1.4rem;
+  border-bottom: 1px solid white;
+}
+
+tr:nth-child(even) {
+  background: #526E9D;
+}
+
+tr:hover {
+  background: #40567A;
 }
 
 button {
@@ -40,7 +70,7 @@ option {
 }
 
 .container {
-  margin-top: 50px;
+  margin-top: 35px;
   width: 90%;
 }
 
