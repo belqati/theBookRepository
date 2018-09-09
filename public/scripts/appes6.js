@@ -56,6 +56,11 @@ class UI {
     // grab all parents of anchor around fa-times
     if(target.parentElement.classList.contains('delete')){
       target.parentElement.parentElement.parentElement.remove();
+
+      // instantiate UI for method access
+      const ui = new UI();
+      // show success alert
+      ui.showAlert('Book removed!', 'success');
     }
   }
 
@@ -173,12 +178,10 @@ document.querySelector('#book-form').addEventListener('submit', function(e){
 document.querySelector('#book-list').addEventListener('click', function(e){
   // instantiate UI class for method access
   const ui = new UI();
-  // delete book
+  // delete book from UI
   ui.deleteBook(e.target);
   // remove from localStorage
   Store.removeBook(e.target.parentElement.parentElement.previousElementSibling.textContent);
-  // show show alert
-  ui.showAlert('Book removed!', 'success');
   // prevent default behavior for delete (else UI jumps to top of page on delete via href="#")
   e.preventDefault();
 });
